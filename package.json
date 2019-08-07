@@ -1,5 +1,5 @@
 {
-  "name": "hide-n-seek",
+  "name": "react-network-status-notifier",
   "version": "0.0.1",
   "description": "Continuously checks whether your application is online or not. Notifies when the status changes.",
   "main": "build/index.js",

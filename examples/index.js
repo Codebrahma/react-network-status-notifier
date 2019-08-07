@@ -1,5 +1,5 @@
 import React from 'react';
-import HideNSeek from 'hide-n-seek';
+import HideNSeek from 'react-network-status-notifier';
 
 class App extends React.Component {
   render() {

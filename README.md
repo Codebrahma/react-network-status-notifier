@@ -7,14 +7,14 @@ A simple React component to notify whenever your application status changes from
 Install it from npm and import it in your root component
 
 ```bash
-npm install --save hide-n-seek
+npm install --save react-network-status-notifier
 ```
 
 ## Usage
 
 ```Javascript
 import React from 'react';
-import HideNSeek from 'hide-n-seek';
+import HideNSeek from 'react-network-status-notifier';
 
 function App() {
     return (
@@ -34,7 +34,7 @@ Consider this example:
 
 ```Javascript
 import React from 'react';
-import HideNSeek from 'hide-n-seek';
+import HideNSeek from 'react-network-status-notifier';
 
 class App extends React.Component {
   render() {
