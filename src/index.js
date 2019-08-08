@@ -1,10 +1,10 @@
-import React from 'react';
-import Message from './components/message';
+import React from "react"
+import Message from "./components/message"
 
 class HideNSeek extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             hideNSeekChecker: null,
             hideNSeekIsOnline: true,
@@ -28,14 +28,14 @@ class HideNSeek extends React.Component {
                     }, () => {
                         setTimeout(() => {
                             let messages = [...this.state.hideNSeekMessages]
-                            console.log(messages.length);
+                            console.log(messages.length)
                             this.setState({
                                 hideNSeekMessages: messages.slice(1)
                             })
                         }, 3000)
                     })
                 }
-            }, 400);
+            }, 400)
             this.setState({
                 hideNSeekChecker: checker
             })
@@ -49,10 +49,10 @@ class HideNSeek extends React.Component {
     }
 
     render() {
-        return <div style={{ position: 'absolute', width: '200px', top: '10px', left: '50%', marginLeft: '-100px' }}>
+        return <div style={{ position: "absolute", width: "200px", top: "10px", left: "50%", marginLeft: "-100px" }}>
             {this.state.hideNSeekMessages}
         </div>
     }
 }
 
-export default HideNSeek;
+export default HideNSeek
