@@ -7,7 +7,7 @@ class HideNSeek extends React.Component {
         super(props);
         this.state = {
             hideNSeekChecker: null,
-            hideNSeekIsOnline: true,
+            hideNSeekIsOnline: navigator.onLine,
             hideNSeekMessages: []
         }
     }
