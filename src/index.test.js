@@ -37,6 +37,29 @@ describe('<HideNSeek /> offline check', () => {
             configurable: true,
             value: false
         })
-        expect(navigator.onLine).toBeFalsy()
+        setTimeout(() => {
+            expect(wrapper.state().hideNSeekIsOnline).toBeFalsy()
+        }, 1000)
+    })
+})
+
+describe('<HideNSeek /> messages check', () => {
+    let wrapper
+    beforeEach(() => {
+        Object.defineProperty(navigator, 'onLine', {
+            configurable: true,
+            value: false
+        })
+        wrapper = mount(<HideNSeek />)
+    })
+
+    it('should render a message when status is changed', () => {
+        Object.defineProperty(navigator, 'onLine', {
+            configurable: true,
+            value: true
+        })
+        setTimeout(() => {
+            expect(wrapper.state().hideNSeekMessages.length).toBeGreaterThanOrEqual(1)
+        }, 1000)
     })
 })
