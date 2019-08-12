@@ -14,11 +14,11 @@ class NetworkStateNotifier extends React.Component {
     let messages = [...this.state.messages];
     if (!navigator.onLine) {
       messages.push(
-        <Message message="You're offline" color={this.props.offlineColor} />
+        <Message message={this.props.offlineMessage} style={{...this.props.messageStyles, backgroundColor: this.props.offlineColor}} className={this.props.messageClassName} />
       );
     } else {
       messages.push(
-        <Message message="You're online" color={this.props.onlineColor} />
+        <Message message={this.props.onlineMessage} style={{...this.props.messageStyles, backgroundColor: this.props.onlineColor}} className={this.props.messageClassName} />
       );
     }
     this.setState({
@@ -27,9 +27,8 @@ class NetworkStateNotifier extends React.Component {
   };
 
   handleMessageRemove = () => {
-    let messages = [...this.state.messages];
     this.setState({
-      messages: messages.slice(1)
+      messages: this.state.messages.slice(1)
     });
   };
 
@@ -41,7 +40,7 @@ class NetworkStateNotifier extends React.Component {
           isOnline: navigator.onLine
         },
         () => {
-          setTimeout(this.handleMessageRemove, 3000);
+          setTimeout(this.handleMessageRemove, this.props.hideMessageAfter);
         }
       );
     }
@@ -49,7 +48,7 @@ class NetworkStateNotifier extends React.Component {
 
   componentDidMount() {
     if (!this.state.checker) {
-      let checker = setInterval(this.handleChecker, 400);
+      let checker = setInterval(this.handleChecker, this.props.checkInterval);
       this.setState({
         checker: checker
       });
@@ -72,7 +71,7 @@ class NetworkStateNotifier extends React.Component {
     };
 
     return (
-      <div style={{ ...defaultStyles, ...this.props.style }}>
+      <div style={{ ...defaultStyles, ...this.props.containerStyles }} className={this.props.containerClassName}>
         {this.state.messages}
       </div>
     );
@@ -80,15 +79,29 @@ class NetworkStateNotifier extends React.Component {
 }
 
 NetworkStateNotifier.propTypes = {
-  style: PropTypes.object,
+  containerStyles: PropTypes.object,
+  messageStyles: PropTypes.object,
   onlineColor: PropTypes.string,
-  offlineColor: PropTypes.string
+  offlineColor: PropTypes.string,
+  containerClassName: PropTypes.string,
+  messageClassName: PropTypes.string,
+  onlineMessage: PropTypes.string,
+  offlineMessage: PropTypes.string,
+  checkInterval: PropTypes.number,
+  hideMessageAfter: PropTypes.number,
 };
 
 NetworkStateNotifier.defaultProps = {
-  style: {},
+  containerStyles: {},
+  messageStyles: {},
   onlineColor: "rgba(0,255,0,0.7)",
-  offlineColor: "rgba(255,0,0,0.7)"
+  offlineColor: "rgba(255,0,0,0.7)",
+  containerClassName: "",
+  messageClassName: "",
+  onlineMessage: "You're online",
+  offlineMessage: "You're offline",
+  checkInterval: 400,
+  hideMessageAfter: 3000,
 };
 
 export default NetworkStateNotifier;

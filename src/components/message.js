@@ -11,24 +11,25 @@ const Message = props => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: 'inherit',
   }
 
   return (
-    <div className="message" style={{ ...defaultStyles, backgroundColor: props.color }}>
+    <div className={props.className} style={{ ...defaultStyles, ...props.style }}>
       {props.message}
     </div>
   );
 };
 
 Message.propTypes = {
-  color: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired
+  className: PropTypes.string,
+  style: PropTypes.object,
+  message: PropTypes.string.isRequired,
 }
 
 Message.defaultProps = {
-  color: '#000',
-  message: ''
+  className: "",
+  style: {},
+  message: "",
 }
 
 export default Message;
