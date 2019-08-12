@@ -20,7 +20,8 @@
   "scripts": {
     "test": "jest --watchAll",
     "start": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint . --fix"
   },
   "author": {
     "name": "Codebrahma",
