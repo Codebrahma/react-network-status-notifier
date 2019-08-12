@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Message from "./components/message";
 
-class Notifier extends React.Component {
+class NetworkStateNotifier extends React.Component {
   state = {
     checker: null,
     isOnline: navigator.onLine,
@@ -79,16 +79,16 @@ class Notifier extends React.Component {
   }
 }
 
-Notifier.propTypes = {
+NetworkStateNotifier.propTypes = {
   style: PropTypes.object,
   onlineColor: PropTypes.string,
   offlineColor: PropTypes.string
 };
 
-Notifier.defaultProps = {
+NetworkStateNotifier.defaultProps = {
   style: {},
   onlineColor: "rgba(0,255,0,0.7)",
   offlineColor: "rgba(255,0,0,0.7)"
 };
 
-export default Notifier;
+export default NetworkStateNotifier;
