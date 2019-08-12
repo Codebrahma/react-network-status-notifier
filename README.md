@@ -32,15 +32,15 @@ export default App;
 
 ## Props
 
-|Name|Type|Description|
-|:--:|:--:|:----------|
-|**`containerClassName`**|`{String}`|The passed className is assigned to the container of the component, useful for managing the sizing and positioning of the message. |
-|**`messageClassName`**|`{String}`|The passed className is assigned to each message block that is appended whenever the online status changes. |
-|**`containerStyles`**|`{Object}`|Styles assigned to the container of the component. |
-|**`messageStyles`**|`{Object}`|Styles assigned to the message block.|
-|**`onlineColor`**|`{String}`|Default: `rgba(0, 255, 0, 0.7)`. The background color of the message when device goes from offline to online. |
-|**`offlineColor`**|`{String}`|Default: `rgba(0, 255, 0, 0.7)`. The background color of the message when device goes from online to offline. |
-|**`onlineMessage`**|`{String}`|Default: `You're online`. The actual message when device goes from online to offline. |
-|**`offlineMessage`**|`{String}`|Default: `You're offline`. The actual message when device goes from offline to online. |
-|**`pollInterval`**|`{Number}`|Default: `400`. Milliseconds after which the check for the online status should be made. |
-|**`notifocationTimeout`**|`{Number}`|Default: `3000`. Milliseconds after which the displayed message should disappear. |
+Name                     |Type      |Description 
+-------------------------|----------|-----------
+**`containerClassName`** |`{String}`|The passed className is assigned to the outer container of the component.
+**`messageClassName`**   |`{String}`|The passed className is assigned to each message block.
+**`containerStyles`**    |`{Object}`|Styles assigned to the container of the component.
+**`messageStyles`**      |`{Object}`|Styles assigned to the message block.
+**`onlineColor`**        |`{String}`|Default: `rgba(0, 255, 0, 0.7)`. The background color of the message when online.
+**`offlineColor`**       |`{String}`|Default: `rgba(0, 255, 0, 0.7)`. The background color of the message when offline.
+**`onlineMessage`**      |`{String}`|Default: `You're online`. The actual message when device goes from online to offline.
+**`offlineMessage`**     |`{String}`|Default: `You're offline`. The actual message when device goes from offline to online.
+**`pollInterval`**       |`{Number}`|Default: `400`. Milliseconds after which the check for the online status should be made.
+**`notificationTimeout`**|`{Number}`|Default: `3000`. Milliseconds after which the displayed message should disappear.
