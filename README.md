@@ -16,12 +16,12 @@ npm install --save react-network-status-notifier
 
 ```Javascript
 import React from 'react';
-import HideNSeek from 'react-network-status-notifier';
+import NetworkStateNotifier from 'react-network-status-notifier';
 
 function App() {
     return (
         <div>
-            <HideNSeek />
+            <NetworkStateNotifier />
             <div>This is a test application</div>
         </div>
     )

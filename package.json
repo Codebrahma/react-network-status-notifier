@@ -17,8 +17,8 @@
     "build": "webpack"
   },
   "author": {
-    "name": "Akhand Mishra",
-    "email": "akhand@codebrahma.com"
+    "name": "Codebrahma",
+    "email": "admin@codebrahma.com"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
