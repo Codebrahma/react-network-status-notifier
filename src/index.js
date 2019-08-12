@@ -14,11 +14,23 @@ class NetworkStateNotifier extends React.Component {
     let messages = [...this.state.messages];
     if (!navigator.onLine) {
       messages.push(
-        <Message message={this.props.offlineMessage} style={{...this.props.messageStyles, backgroundColor: this.props.offlineColor}} className={this.props.messageClassName} />
+        <Message
+          message={this.props.offlineMessage}
+          style={{
+            ...this.props.messageStyles,
+            backgroundColor: this.props.offlineColor
+          }}
+          className={this.props.messageClassName} />
       );
     } else {
       messages.push(
-        <Message message={this.props.onlineMessage} style={{...this.props.messageStyles, backgroundColor: this.props.onlineColor}} className={this.props.messageClassName} />
+        <Message
+          message={this.props.onlineMessage}
+          style={{
+            ...this.props.messageStyles,
+            backgroundColor: this.props.onlineColor
+          }}
+          className={this.props.messageClassName} />
       );
     }
     this.setState({
@@ -40,7 +52,10 @@ class NetworkStateNotifier extends React.Component {
           isOnline: navigator.onLine
         },
         () => {
-          setTimeout(this.handleMessageRemove, this.props.notificationTimeout);
+          setTimeout(
+            this.handleMessageRemove,
+            this.props.notificationTimeout
+          );
         }
       );
     }
@@ -48,7 +63,10 @@ class NetworkStateNotifier extends React.Component {
 
   componentDidMount() {
     if (!this.state.checker) {
-      let checker = setInterval(this.handleChecker, this.props.pollInterval);
+      let checker = setInterval(
+        this.handleChecker, 
+        this.props.pollInterval
+      );
       this.setState({
         checker: checker
       });
@@ -71,7 +89,12 @@ class NetworkStateNotifier extends React.Component {
     };
 
     return (
-      <div style={{ ...defaultStyles, ...this.props.containerStyles }} className={this.props.containerClassName}>
+      <div
+        style={{ 
+          ...defaultStyles,
+          ...this.props.containerStyles
+        }}
+        className={this.props.containerClassName}>
         {this.state.messages}
       </div>
     );

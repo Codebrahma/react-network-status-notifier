@@ -20,7 +20,8 @@ class App extends React.Component {
         </blockquote>
 
         {/*
-          After including the component you can open DevTools and GoTo "Applications" tab
+          After including the component you can open DevTools 
+          and GoTo "Applications" tab
           Click on the "Service Worker" tab
           Use the "Offline" checkbox to test the application.
         */}
