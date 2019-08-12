@@ -1,58 +1,94 @@
-import React from 'react';
-import Message from './components/message';
+import React from "react";
+import PropTypes from "prop-types";
 
-class HideNSeek extends React.Component {
+import Message from "./components/message";
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            hideNSeekChecker: null,
-            hideNSeekIsOnline: true,
-            hideNSeekMessages: []
+class Notifier extends React.Component {
+  state = {
+    checker: null,
+    isOnline: navigator.onLine,
+    messages: []
+  };
+
+  handleMessageAddition = () => {
+    let messages = [...this.state.messages];
+    if (!navigator.onLine) {
+      messages.push(
+        <Message message="You're offline" color={this.props.offlineColor} />
+      );
+    } else {
+      messages.push(
+        <Message message="You're online" color={this.props.onlineColor} />
+      );
+    }
+    this.setState({
+      messages: messages
+    });
+  };
+
+  handleMessageRemove = () => {
+    let messages = [...this.state.messages];
+    this.setState({
+      messages: messages.slice(1)
+    });
+  };
+
+  handleChecker = () => {
+    if (this.state.isOnline !== navigator.onLine) {
+      this.handleMessageAddition();
+      this.setState(
+        {
+          isOnline: navigator.onLine
+        },
+        () => {
+          setTimeout(this.handleMessageRemove, 3000);
         }
+      );
     }
+  };
 
-    componentDidMount() {
-        if(!this.state.hideNSeekChecker) {
-            let checker = setInterval(() => {
-                if(this.state.hideNSeekIsOnline !== navigator.onLine) {
-                    let messages = [...this.state.hideNSeekMessages]
-                    if(!navigator.onLine) {
-                        messages.push(<Message message="You're offline" color="rgba(255,0,0,0.5)"/>)
-                    } else {
-                        messages.push(<Message message="You're online" color="rgba(0,255,0,0.5)"/>)
-                    }
-                    this.setState({
-                        hideNSeekIsOnline: navigator.onLine,
-                        hideNSeekMessages: messages
-                    }, () => {
-                        setTimeout(() => {
-                            let messages = [...this.state.hideNSeekMessages]
-                            console.log(messages.length);
-                            this.setState({
-                                hideNSeekMessages: messages.slice(1)
-                            })
-                        }, 3000)
-                    })
-                }
-            }, 400);
-            this.setState({
-                hideNSeekChecker: checker
-            })
-        }
+  componentDidMount() {
+    if (!this.state.checker) {
+      let checker = setInterval(this.handleChecker, 400);
+      this.setState({
+        checker: checker
+      });
     }
+  }
 
-    componentWillUnmount() {
-        if(this.state.hideNSeekChecker) {
-            clearInterval(this.state.hideNSeekChecker)
-        }
+  componentWillUnmount() {
+    if (this.state.checker) {
+      clearInterval(this.state.checker);
     }
+  }
 
-    render() {
-        return <div style={{ position: 'absolute', width: '200px', top: '10px', left: '50%', marginLeft: '-100px' }}>
-            {this.state.hideNSeekMessages}
-        </div>
-    }
+  render() {
+    const defaultStyles = {
+      position: "absolute",
+      width: "200px",
+      top: "10px",
+      left: "50%",
+      marginLeft: "-100px"
+    };
+
+    return (
+      <div style={{ ...defaultStyles, ...this.props.style }}>
+        {this.state.messages}
+      </div>
+    );
+  }
 }
 
-export default HideNSeek;
+Notifier.propTypes = {
+  style: PropTypes.object,
+  onlineColor: PropTypes.string,
+  offlineColor: PropTypes.string
+};
+
+Notifier.defaultProps = {
+  style: {},
+  onlineColor: "rgba(0,255,0,0.7)",
+  offlineColor: "rgba(255,0,0,0.7)"
+};
+
+export default Notifier;
