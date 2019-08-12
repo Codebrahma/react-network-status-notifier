@@ -1,0 +1,36 @@
+{
+  "name": "react-network-status-notifier",
+  "version": "0.0.1",
+  "description": "Continuously checks whether your application is online or not. Notifies when the status changes.",
+  "main": "build/index.js",
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "webpack": "^4.39.1"
+  },
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": {
+    "name": "Codebrahma",
+    "email": "admin@codebrahma.com"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack-cli": "^3.3.6"
+  }
+}
