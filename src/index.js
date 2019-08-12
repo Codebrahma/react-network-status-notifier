@@ -40,7 +40,7 @@ class NetworkStateNotifier extends React.Component {
           isOnline: navigator.onLine
         },
         () => {
-          setTimeout(this.handleMessageRemove, this.props.hideMessageAfter);
+          setTimeout(this.handleMessageRemove, this.props.notificationTimeout);
         }
       );
     }
@@ -48,7 +48,7 @@ class NetworkStateNotifier extends React.Component {
 
   componentDidMount() {
     if (!this.state.checker) {
-      let checker = setInterval(this.handleChecker, this.props.checkInterval);
+      let checker = setInterval(this.handleChecker, this.props.pollInterval);
       this.setState({
         checker: checker
       });
@@ -87,8 +87,8 @@ NetworkStateNotifier.propTypes = {
   messageClassName: PropTypes.string,
   onlineMessage: PropTypes.string,
   offlineMessage: PropTypes.string,
-  checkInterval: PropTypes.number,
-  hideMessageAfter: PropTypes.number,
+  pollInterval: PropTypes.number,
+  notificationTimeout: PropTypes.number,
 };
 
 NetworkStateNotifier.defaultProps = {
@@ -100,8 +100,8 @@ NetworkStateNotifier.defaultProps = {
   messageClassName: "",
   onlineMessage: "You're online",
   offlineMessage: "You're offline",
-  checkInterval: 400,
-  hideMessageAfter: 3000,
+  pollInterval: 400,
+  notificationTimeout: 3000,
 };
 
 export default NetworkStateNotifier;
