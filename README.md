@@ -2,7 +2,7 @@
 
 A simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
 
-![Demo](https://media.giphy.com/media/H0nVZ6316wwMRMWf5P/giphy.gif)
+![Demo](demo.gif)
 
 ## Installation
 
