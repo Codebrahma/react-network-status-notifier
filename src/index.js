@@ -1,109 +1,134 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Message from "./components/message";
+import Message from './components/message';
 
 class NetworkStateNotifier extends React.Component {
   state = {
     checker: null,
     isOnline: navigator.onLine,
-    messages: []
-  };
-
-  handleMessageAddition = () => {
-    let messages = [...this.state.messages];
-    if (!navigator.onLine) {
-      messages.push(
-        <Message
-          message={this.props.offlineMessage}
-          style={{
-            ...this.props.messageStyles,
-            backgroundColor: this.props.offlineColor
-          }}
-          className={this.props.messageClassName} />
-      );
-    } else {
-      messages.push(
-        <Message
-          message={this.props.onlineMessage}
-          style={{
-            ...this.props.messageStyles,
-            backgroundColor: this.props.onlineColor
-          }}
-          className={this.props.messageClassName} />
-      );
-    }
-    this.setState({
-      messages: messages
-    });
-  };
-
-  handleMessageRemove = () => {
-    this.setState({
-      messages: this.state.messages.slice(1)
-    });
-  };
-
-  handleChecker = () => {
-    if (this.state.isOnline !== navigator.onLine) {
-      this.handleMessageAddition();
-      this.setState(
-        {
-          isOnline: navigator.onLine
-        },
-        () => {
-          setTimeout(
-            this.handleMessageRemove,
-            this.props.notificationTimeout
-          );
-        }
-      );
-    }
+    messages: [],
   };
 
   componentDidMount() {
-    if (!this.state.checker) {
-      let checker = setInterval(
-        this.handleChecker, 
-        this.props.pollInterval
+    const { checker } = this.state;
+    const { pollInterval } = this.props;
+
+    if (!checker) {
+      const newChecker = setInterval(
+        this.handleChecker,
+        pollInterval,
       );
       this.setState({
-        checker: checker
+        checker: newChecker,
       });
     }
   }
 
   componentWillUnmount() {
-    if (this.state.checker) {
-      clearInterval(this.state.checker);
+    const { checker } = this.state;
+    if (checker) {
+      clearInterval(checker);
     }
   }
 
+  handleMessageAddition = () => {
+    const { messages } = this.state;
+    const {
+      offlineMessage,
+      offlineColor,
+      messageClassName,
+      messageStyles,
+      onlineMessage,
+      onlineColor,
+    } = this.props;
+    if (!navigator.onLine) {
+      messages.push(
+        <Message
+          message={offlineMessage}
+          style={{
+            ...messageStyles,
+            backgroundColor: offlineColor,
+          }}
+          className={messageClassName}
+        />,
+      );
+    } else {
+      messages.push(
+        <Message
+          message={onlineMessage}
+          style={{
+            ...messageStyles,
+            backgroundColor: onlineColor,
+          }}
+          className={messageClassName}
+        />,
+      );
+    }
+    this.setState({
+      messages,
+    });
+  };
+
+  handleMessageRemove = () => {
+    const { messages } = this.state;
+    this.setState({
+      messages: messages.slice(1),
+    });
+  };
+
+  handleChecker = () => {
+    const { isOnline } = this.state;
+    const { notificationTimeout } = this.props;
+
+    if (isOnline !== navigator.onLine) {
+      this.handleMessageAddition();
+      this.setState(
+        {
+          isOnline: navigator.onLine,
+        },
+        () => {
+          setTimeout(
+            this.handleMessageRemove,
+            notificationTimeout,
+          );
+        },
+      );
+    }
+  };
+
   render() {
     const defaultStyles = {
-      position: "absolute",
-      width: "200px",
-      top: "10px",
-      left: "50%",
-      marginLeft: "-100px"
+      position: 'absolute',
+      width: '200px',
+      top: '10px',
+      left: '50%',
+      marginLeft: '-100px',
     };
+
+    const { messages } = this.state;
+    const {
+      containerStyles,
+      containerClassName,
+    } = this.props;
 
     return (
       <div
-        style={{ 
+        style={{
           ...defaultStyles,
-          ...this.props.containerStyles
+          ...containerStyles,
         }}
-        className={this.props.containerClassName}>
-        {this.state.messages}
+        className={containerClassName}
+      >
+        {messages}
       </div>
     );
   }
 }
 
 NetworkStateNotifier.propTypes = {
-  containerStyles: PropTypes.object,
-  messageStyles: PropTypes.object,
+  containerStyles: PropTypes.objectOf(PropTypes.object),
+  messageStyles: PropTypes.objectOf(PropTypes.object),
   onlineColor: PropTypes.string,
   offlineColor: PropTypes.string,
   containerClassName: PropTypes.string,
@@ -117,10 +142,10 @@ NetworkStateNotifier.propTypes = {
 NetworkStateNotifier.defaultProps = {
   containerStyles: {},
   messageStyles: {},
-  onlineColor: "rgba(0,255,0,0.7)",
-  offlineColor: "rgba(255,0,0,0.7)",
-  containerClassName: "",
-  messageClassName: "",
+  onlineColor: 'rgba(0,255,0,0.7)',
+  offlineColor: 'rgba(255,0,0,0.7)',
+  containerClassName: '',
+  messageClassName: '',
   onlineMessage: "You're online",
   offlineMessage: "You're offline",
   pollInterval: 400,
