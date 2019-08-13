@@ -80,11 +80,6 @@ describe("<NetworkStateNotifies /> props check", () => {
     wrapper = shallow(
       <NetworkStateNotifier
         containerClassName="myContainer"
-        messageClassName="myMessage"
-        containerStyles={{ bottom: 0 }}
-        messageStyles={{ fontFamily: "cursive" }}
-        onineMessage="You're online test"
-        offlineMessage="You're offline test"
         pollInterval={500}
         notificationTimeout={2000}
       />
