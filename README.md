@@ -1,8 +1,10 @@
 # react-network-status-notifier
 
-A simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
+![NPM Version](https://img.shields.io/badge/npm-1.0.0-blue)
 
-![Demo](demo.gif)
+🔔 Simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
+
+<img src="demo.gif" width="800px" />
 
 ## Installation
 
