@@ -15,7 +15,9 @@
     },
     "plugins": ["react"],
     "env": {
-      "browser": true
+      "browser": true,
+      "commonjs": true,
+      "jest": true
     }
   }
   
