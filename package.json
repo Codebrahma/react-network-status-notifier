@@ -21,7 +21,7 @@
     "test": "jest --watchAll",
     "start": "webpack --watch",
     "build": "webpack",
-    "lint": "eslint . --fix"
+    "lint": "node_modules/.bin/eslint . --fix"
   },
   "author": {
     "name": "Codebrahma",
