@@ -10,15 +10,19 @@ configure({adapter: new Adapter()})
 describe('<Message />', () => {
     let wrapper
     beforeEach(() => {
-        wrapper = shallow(<Message message="Test message" color="rgba(0,0,0,0.5)" />)
+        wrapper = shallow(<Message style={{ fontFamily: 'cursive' }} className="myMessage" message="Test message" />)
     })
-
+    
     it('should have a class of HideNSeek-message', () => {
-        expect(wrapper.hasClass('HideNSeek-message')).toBeTruthy();
+        expect(wrapper.hasClass('myMessage')).toBeTruthy();
     })
-
-    it('should have the text passed in the props', () => {
-        expect(wrapper.text()).toEqual("Test message")
+    
+    it('should have the message passed to it as a prop', () => {
+        expect(wrapper.text()).toEqual("Test message");
+    })
+    
+    it('should have the style object passed to it as a prop', () => {
+        expect(wrapper.props().style).toMatchObject({ fontFamily: 'cursive' })
     })
 
 })

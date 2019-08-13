@@ -3,18 +3,18 @@ import React from 'react'
 import { configure, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import HideNSeek from './index'
+import NetworkStateNotifier from './index'
 
 configure({adapter: new Adapter()})
 
-describe('<HideNSeek /> online check', () => {
+describe('<NetworkStateNotifier /> online check', () => {
     let wrapper
     beforeEach(() => {
-        wrapper = shallow(<HideNSeek />)
+        wrapper = shallow(<NetworkStateNotifier />)
     })
 
     it('should have an Interval set when mounted', () => {
-        expect(wrapper.state().hideNSeekChecker).toBeDefined()
+        expect(wrapper.state().checker).toBeDefined()
     })
 
     it('should have isOnline true when system is online', () => {
@@ -22,14 +22,14 @@ describe('<HideNSeek /> online check', () => {
             configurable: true,
             value: true
           })
-        expect(wrapper.state().hideNSeekIsOnline).toBeTruthy()
+        expect(wrapper.state().isOnline).toBeTruthy()
     })
 })
 
-describe('<HideNSeek /> offline check', () => {
+describe('<NetworkStateNotifier /> offline check', () => {
     let wrapper
     beforeEach(() => {
-        wrapper = mount(<HideNSeek />)
+        wrapper = shallow(<NetworkStateNotifier />)
     })
 
     it('should have isOnline set to false when system is offline', () => {
@@ -38,19 +38,19 @@ describe('<HideNSeek /> offline check', () => {
             value: false
         })
         setTimeout(() => {
-            expect(wrapper.state().hideNSeekIsOnline).toBeFalsy()
+            expect(wrapper.state().isOnline).toBeFalsy()
         }, 1000)
     })
 })
 
-describe('<HideNSeek /> messages check', () => {
+describe('<NetworkStateNotifier /> messages check', () => {
     let wrapper
     beforeEach(() => {
         Object.defineProperty(navigator, 'onLine', {
             configurable: true,
             value: false
         })
-        wrapper = mount(<HideNSeek />)
+        wrapper = shallow(<NetworkStateNotifier />)
     })
 
     it('should render a message when status is changed', () => {
@@ -59,7 +59,52 @@ describe('<HideNSeek /> messages check', () => {
             value: true
         })
         setTimeout(() => {
-            expect(wrapper.state().hideNSeekMessages.length).toBeGreaterThanOrEqual(1)
+            expect(wrapper.state().messages.length).toEqual(1)
         }, 1000)
+    })
+
+    it('should render 2 messages on immediate change', () => {
+        Object.defineProperty(navigator, 'onLine', {
+            configurable: true,
+            value: false
+        })
+        setTimeout(() => {
+            expect(wrapper.state().messages.length).toEqual(2)
+        }, 1000)
+    })
+})
+
+describe('<NetworkStateNotifies /> props check', () => {
+    let wrapper
+    beforeEach(() => {
+        wrapper = shallow(
+            <NetworkStateNotifier 
+                containerClassName="myContainer"
+                messageClassName="myMessage"
+                containerStyles={{ bottom: 0 }}
+                messageStyles={{ fontFamily: 'cursive' }}
+                onineMessage="You're online test"
+                offlineMessage="You're offline test"
+                pollInterval={500}
+                notificationTimeout={2000} />
+        )
+    })
+
+    it('should have the className passed to it', () => {
+        expect(wrapper.props().className).toEqual("myContainer")
+    })
+
+    it('should poll according to the duration passed', () => {
+        setTimeout(() => expect(wrapper.state().checker).toBeCalledTimes(2), 1000)
+    })
+
+    it('should remove message after the passed time', () => {
+        Object.defineProperty(navigator, 'onLine', {
+            configurable: true,
+            value: false
+        })
+        setTimeout(() => {
+            expect(wrapper.state().messages.length).toEqual(0)
+        }, 2000)
     })
 })
