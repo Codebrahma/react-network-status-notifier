@@ -1,7 +1,12 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = props => {
+const Message = (props) => {
+  const {
+    style,
+    message,
+    className,
+  } = props;
 
   const defaultStyles = {
     width: '100%',
@@ -11,28 +16,28 @@ const Message = props => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  };
 
   return (
     <div
-      className={props.className}
-      style={{ ...defaultStyles, ...props.style }}
+      className={className}
+      style={{ ...defaultStyles, ...style }}
     >
-      {props.message}
+      {message}
     </div>
   );
 };
 
 Message.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object,
-  message: PropTypes.string.isRequired,
-}
+  style: PropTypes.objectOf(PropTypes.object),
+  message: PropTypes.string,
+};
 
 Message.defaultProps = {
-  className: "",
+  className: '',
   style: {},
-  message: "",
-}
+  message: '',
+};
 
 export default Message;
