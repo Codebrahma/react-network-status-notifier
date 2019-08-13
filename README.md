@@ -1,7 +1,8 @@
-react-network-status-notifier
-=============
+# react-network-status-notifier
 
 A simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
+
+![Demo](demo.gif)
 
 ## Installation
 
@@ -15,64 +16,31 @@ npm install --save react-network-status-notifier
 
 ```Javascript
 import React from 'react';
-import HideNSeek from 'react-network-status-notifier';
+import NetworkStateNotifier from 'react-network-status-notifier';
 
 function App() {
-    return (
-        <div>
-            <HideNSeek />
-            <div>This is a test application</div>
-        </div>
-    )
+  return (
+    <div>
+      <NetworkStateNotifier />
+      <div>This is a test application</div>
+    </div>
+  )
 }
 
 export default App;
 ```
 
-## Testing
+## Props
 
-Consider this example:
-
-```Javascript
-import React from 'react';
-import HideNSeek from 'react-network-status-notifier';
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <header>
-          Welcome to HideNSeek test
-        </header>
-
-        <blockquote>
-                <p><b>Open DevTools and GoTo "Applications" tab</b></p>
-                <p><b>Click on the "Service Worker" tab</b></p>
-                <p><b>Use the "Offline" checkbox to test the application.</b></p>
-        </blockquote>
-
-        {
-            /*
-                After including the component you can open DevTools and GoTo "Applications" tab
-                Click on the "Service Worker" tab
-                Use the "Offline" checkbox to test the application.
-            */
-        }
-        <HideNSeek />
-      
-      </div>
-    );
-  }
-}
-
-export default App;
-```
-
-Put this component in your project and run the project.
-
-After doing so, follow:
-
-- Open DevTools (F12)
-- Go to "Applications" tab
-- Go to "Service Workers" tab
-- Check/Uncheck the "Offline" checkbox multiple times to test the component
+Name                     |Type      |Description 
+-------------------------|----------|-----------
+**`containerClassName`** |`{String}`|The passed className is assigned to the outer container of the component.
+**`messageClassName`**   |`{String}`|The passed className is assigned to each message block.
+**`containerStyles`**    |`{Object}`|Styles assigned to the container of the component.
+**`messageStyles`**      |`{Object}`|Styles assigned to the message block.
+**`onlineColor`**        |`{String}`|Default: `rgba(0, 255, 0, 0.7)`. The background color of the message when online.
+**`offlineColor`**       |`{String}`|Default: `rgba(0, 255, 0, 0.7)`. The background color of the message when offline.
+**`onlineMessage`**      |`{String}`|Default: `You're online`. The actual message when device goes from online to offline.
+**`offlineMessage`**     |`{String}`|Default: `You're offline`. The actual message when device goes from offline to online.
+**`pollInterval`**       |`{Number}`|Default: `400`. Milliseconds after which the check for the online status should be made.
+**`notificationTimeout`**|`{Number}`|Default: `3000`. Milliseconds after which the displayed message should disappear.
