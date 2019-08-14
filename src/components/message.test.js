@@ -15,7 +15,7 @@ describe('<Message />', () => {
         style={{ fontFamily: 'cursive' }}
         className="myMessage"
         message="Test message"
-      />
+      />,
     );
   });
 

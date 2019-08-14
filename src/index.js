@@ -48,7 +48,7 @@ class NetworkStateNotifier extends React.Component {
             backgroundColor: offlineColor,
           }}
           className={messageClassName}
-        />
+        />,
       );
     } else {
       messages.push(
@@ -59,7 +59,7 @@ class NetworkStateNotifier extends React.Component {
             backgroundColor: onlineColor,
           }}
           className={messageClassName}
-        />
+        />,
       );
     }
     this.setState({
@@ -86,7 +86,7 @@ class NetworkStateNotifier extends React.Component {
         },
         () => {
           setTimeout(this.handleMessageRemove, notificationTimeout);
-        }
+        },
       );
     }
   };

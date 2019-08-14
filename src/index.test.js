@@ -82,7 +82,7 @@ describe('<NetworkStateNotifies /> props check', () => {
         containerClassName="myContainer"
         pollInterval={500}
         notificationTimeout={2000}
-      />
+      />,
     );
   });
 
