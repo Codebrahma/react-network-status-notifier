@@ -15,10 +15,7 @@ class NetworkStateNotifier extends React.Component {
     const { pollInterval } = this.props;
 
     if (!checker) {
-      const newChecker = setInterval(
-        this.handleChecker,
-        pollInterval,
-      );
+      const newChecker = setInterval(this.handleChecker, pollInterval);
       this.setState({
         checker: newChecker,
       });
@@ -51,7 +48,7 @@ class NetworkStateNotifier extends React.Component {
             backgroundColor: offlineColor,
           }}
           className={messageClassName}
-        />,
+        />
       );
     } else {
       messages.push(
@@ -62,7 +59,7 @@ class NetworkStateNotifier extends React.Component {
             backgroundColor: onlineColor,
           }}
           className={messageClassName}
-        />,
+        />
       );
     }
     this.setState({
@@ -88,11 +85,8 @@ class NetworkStateNotifier extends React.Component {
           isOnline: navigator.onLine,
         },
         () => {
-          setTimeout(
-            this.handleMessageRemove,
-            notificationTimeout,
-          );
-        },
+          setTimeout(this.handleMessageRemove, notificationTimeout);
+        }
       );
     }
   };
@@ -107,10 +101,7 @@ class NetworkStateNotifier extends React.Component {
     };
 
     const { messages } = this.state;
-    const {
-      containerStyles,
-      containerClassName,
-    } = this.props;
+    const { containerStyles, containerClassName } = this.props;
 
     return (
       <div

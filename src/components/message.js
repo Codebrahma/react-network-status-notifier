@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = (props) => {
-  const {
-    style,
-    message,
-    className,
-  } = props;
+const Message = props => {
+  const { style, message, className } = props;
 
   const defaultStyles = {
     width: '100%',
@@ -19,10 +15,7 @@ const Message = (props) => {
   };
 
   return (
-    <div
-      className={className}
-      style={{ ...defaultStyles, ...style }}
-    >
+    <div className={className} style={{ ...defaultStyles, ...style }}>
       {message}
     </div>
   );
