@@ -23,7 +23,7 @@ const Message = (props) => {
 
 Message.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.objectOf(PropTypes.object),
+  style: PropTypes.instanceOf(Object),
   message: PropTypes.string,
 };
 
