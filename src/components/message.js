@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = props => {
+const Message = (props) => {
   const { style, message, className } = props;
 
   const defaultStyles = {
@@ -23,7 +23,7 @@ const Message = props => {
 
 Message.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.objectOf(PropTypes.object),
+  style: PropTypes.instanceOf(Object),
   message: PropTypes.string,
 };
 

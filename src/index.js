@@ -48,7 +48,7 @@ class NetworkStateNotifier extends React.Component {
             backgroundColor: offlineColor,
           }}
           className={messageClassName}
-        />
+        />,
       );
     } else {
       messages.push(
@@ -59,7 +59,7 @@ class NetworkStateNotifier extends React.Component {
             backgroundColor: onlineColor,
           }}
           className={messageClassName}
-        />
+        />,
       );
     }
     this.setState({
@@ -86,7 +86,7 @@ class NetworkStateNotifier extends React.Component {
         },
         () => {
           setTimeout(this.handleMessageRemove, notificationTimeout);
-        }
+        },
       );
     }
   };
@@ -118,8 +118,8 @@ class NetworkStateNotifier extends React.Component {
 }
 
 NetworkStateNotifier.propTypes = {
-  containerStyles: PropTypes.objectOf(PropTypes.object),
-  messageStyles: PropTypes.objectOf(PropTypes.object),
+  containerStyles: PropTypes.instanceOf(Object),
+  messageStyles: PropTypes.instanceOf(Object),
   onlineColor: PropTypes.string,
   offlineColor: PropTypes.string,
   containerClassName: PropTypes.string,

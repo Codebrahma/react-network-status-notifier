@@ -1,6 +1,6 @@
 # react-network-status-notifier
 
-![NPM Version](https://img.shields.io/badge/npm-1.0.0-blue)
+![NPM Version](https://img.shields.io/badge/npm-1.0.0-blue) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Codebrahma/react-network-status-notifier?color=green) ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Codebrahma/react-network-status-notifier?color=orange)
 
 🔔 Simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
 
