@@ -26,7 +26,9 @@
     "test": "jest --runInBand",
     "start": "webpack --watch",
     "build": "webpack",
-    "lint": "node_modules/.bin/eslint . --fix"
+    "lint": "node_modules/.bin/eslint . --fix",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release"
   },
   "author": {
     "name": "Codebrahma",
@@ -38,13 +40,17 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/git": "^7.0.16",
     "@testing-library/react": "^9.1.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
+    "commitizen": "^4.0.3",
     "css-loader": "^3.2.0",
+    "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.1.0",
@@ -60,6 +66,11 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
