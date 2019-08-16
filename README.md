@@ -1,6 +1,6 @@
 # react-network-status-notifier
 
-![NPM Version](https://img.shields.io/badge/npm-v1.0.1-blue) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Codebrahma/react-network-status-notifier?color=green) ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Codebrahma/react-network-status-notifier?color=orange) ![Codecov](https://img.shields.io/badge/coverage-100%-success) ![Tests](https://img.shields.io/badge/tests-passing-success) [![CircleCI](https://circleci.com/gh/Codebrahma/react-network-status-notifier.svg?style=svg)](https://circleci.com/gh/Codebrahma/react-network-status-notifier)
+![NPM Version](https://img.shields.io/badge/npm-v1.0.1-blue) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Codebrahma/react-network-status-notifier?color=green) ![npm bundle size](https://img.shields.io/bundlephobia/min/react-network-status-notifier) ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Codebrahma/react-network-status-notifier?color=orange) ![Codecov](https://img.shields.io/badge/coverage-100%-success) ![Tests](https://img.shields.io/badge/tests-passing-success) [![CircleCI](https://circleci.com/gh/Codebrahma/react-network-status-notifier.svg?style=svg)](https://circleci.com/gh/Codebrahma/react-network-status-notifier)
 
 🔔 Simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
 
