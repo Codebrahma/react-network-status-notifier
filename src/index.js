@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 import Message from './components/message';
 
 class NetworkStateNotifier extends React.Component {
-  state = {
-    checker: null,
-    isOnline: navigator.onLine,
-    messages: [],
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      checker: null,
+      isOnline: navigator.onLine,
+      messages: [],
+    };
+  }
 
   componentDidMount() {
     const { checker } = this.state;
