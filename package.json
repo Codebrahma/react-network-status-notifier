@@ -1,8 +1,13 @@
 {
   "name": "react-network-status-notifier",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Continuously checks whether your application is online or not. Notifies when the status changes.",
   "main": "build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Codebrahma/react-network-status-notifier"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "react": "^16.8.6"
   },
