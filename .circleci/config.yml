@@ -26,9 +26,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: npm run lint
-      - run: COVERAGE=TRUE JOBS=2 npm test
-
-      - run: bash <(curl -s https://codecov.io/bash) -t "${CODECOV_TOKEN}"
+      - run: npm run test
+      - run: ./node_modules/.bin/codecov
   release:
       docker:
         - image: circleci/node:9.10.0
