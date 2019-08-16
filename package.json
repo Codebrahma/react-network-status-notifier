@@ -60,6 +60,7 @@
     "eslint-plugin-react": "^7.14.3",
     "prettier": "^1.18.2",
     "semantic-release": "^15.13.21",
+    "semantic-release-cli": "^5.1.2",
     "style-loader": "^1.0.0",
     "webpack-cli": "^3.3.6"
   },
@@ -89,14 +90,14 @@
       "@semantic-release/changelog",
       "@semantic-release/npm",
       {
-       "path": "@semantic-release/git",
+        "path": "@semantic-release/git",
         "assets": [
-         "package.json",
-         "package-lock.json",
-         "CHANGELOG.md"
-       ],
-       "message": "chore(release): ${nextRelease.version} [skip ci]nn${nextRelease.notes}"
-     }
-   ]
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]nn${nextRelease.notes}"
+      }
+    ]
   }
 }
