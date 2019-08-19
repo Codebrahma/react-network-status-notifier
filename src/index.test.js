@@ -137,5 +137,6 @@ describe('<NetworkStateNotifier /> unmount check', () => {
 
   it('should remove the checker after unmount', () => {
     wrapper.unmount();
+    expect(wrapper.html()).toBeNull();
   });
 });
