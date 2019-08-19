@@ -17,12 +17,26 @@ describe('<NetworkStateNotifier /> online check', () => {
     expect(wrapper.state().checker).toBeDefined();
   });
 
-  it('should have isOnline true when system is online', () => {
+  it('should have isOnline true when system is online', (done) => {
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
+      value: false,
+    });
     Object.defineProperty(navigator, 'onLine', {
       configurable: true,
       value: true,
     });
-    expect(wrapper.state().isOnline).toBeTruthy();
+    setTimeout(() => {
+      expect(wrapper.state().isOnline).toEqual(navigator.onLine);
+      done();
+    }, 1000);
+  });
+
+  it('should not have any messages in state if status is unchanged', (done) => {
+    setTimeout(() => {
+      expect(wrapper.state().messages.length).toEqual(0);
+      done();
+    }, 4000);
   });
 });
 
@@ -32,13 +46,14 @@ describe('<NetworkStateNotifier /> offline check', () => {
     wrapper = shallow(<NetworkStateNotifier />);
   });
 
-  it('should have isOnline set to false when system is offline', () => {
+  it('should have isOnline set to false when system is offline', (done) => {
     Object.defineProperty(navigator, 'onLine', {
       configurable: true,
       value: false,
     });
     setTimeout(() => {
-      expect(wrapper.state().isOnline).toBeFalsy();
+      expect(wrapper.state().isOnline).toEqual(navigator.onLine);
+      done();
     }, 1000);
   });
 });
@@ -53,28 +68,40 @@ describe('<NetworkStateNotifier /> messages check', () => {
     wrapper = shallow(<NetworkStateNotifier />);
   });
 
-  it('should render a message when status is changed', () => {
+  it('should render a message when status is changed', (done) => {
     Object.defineProperty(navigator, 'onLine', {
       configurable: true,
       value: true,
     });
     setTimeout(() => {
       expect(wrapper.state().messages.length).toEqual(1);
+      done();
     }, 1000);
   });
 
-  it('should render 2 messages on immediate change', () => {
+  it('should render 2 messages on immediate change', (done) => {
     Object.defineProperty(navigator, 'onLine', {
       configurable: true,
-      value: false,
+      value: true,
     });
     setTimeout(() => {
-      expect(wrapper.state().messages.length).toEqual(2);
+      Object.defineProperty(navigator, 'onLine', {
+        configurable: true,
+        value: false,
+      });
+      setTimeout(() => {
+        try {
+          expect(wrapper.state().messages.length).toEqual(2);
+          done();
+        } catch (err) {
+          done.fail(err);
+        }
+      }, 1000);
     }, 1000);
   });
 });
 
-describe('<NetworkStateNotifies /> props check', () => {
+describe('<NetworkStateNotifier /> props check', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(
@@ -102,5 +129,14 @@ describe('<NetworkStateNotifies /> props check', () => {
     setTimeout(() => {
       expect(wrapper.state().messages.length).toEqual(0);
     }, 2000);
+  });
+});
+
+describe('<NetworkStateNotifier /> unmount check', () => {
+  const wrapper = shallow(<NetworkStateNotifier />);
+
+  it('should remove the checker after unmount', () => {
+    wrapper.unmount();
+    expect(wrapper.html()).toBeNull();
   });
 });

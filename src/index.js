@@ -30,6 +30,9 @@ class NetworkStateNotifier extends React.Component {
     const { checker } = this.state;
     if (checker) {
       clearInterval(checker);
+      this.setState({
+        checker: null,
+      });
     }
   }
 

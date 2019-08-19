@@ -24,7 +24,7 @@
     "webpack": "^4.39.1"
   },
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --coverage",
     "start": "webpack --watch",
     "build": "webpack",
     "lint": "node_modules/.bin/eslint . --fix",
@@ -49,6 +49,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
+    "codecov": "^3.5.0",
     "commitizen": "^4.0.3",
     "css-loader": "^3.2.0",
     "cz-conventional-changelog": "^3.0.2",
@@ -66,7 +67,9 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+      "coverageDirectory": "./coverage/",
+      "collectCoverage": true
     }
   },
   "config": {

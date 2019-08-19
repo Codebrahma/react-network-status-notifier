@@ -26,7 +26,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: npm run lint
-      - run: npm test
+      - run: npm run test
+      - run: ./node_modules/.bin/codecov
   release:
       docker:
         - image: circleci/node:9.10.0
