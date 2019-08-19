@@ -24,7 +24,7 @@
     "webpack": "^4.39.1"
   },
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --coverage",
     "start": "webpack --watch",
     "build": "webpack",
     "lint": "node_modules/.bin/eslint . --fix",
@@ -67,7 +67,9 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+      "coverageDirectory": "./coverage/",
+      "collectCoverage": true
     }
   },
   "config": {
