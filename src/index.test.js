@@ -20,10 +20,22 @@ describe('<NetworkStateNotifier /> online check', () => {
   it('should have isOnline true when system is online', () => {
     Object.defineProperty(navigator, 'onLine', {
       configurable: true,
+      value: false,
+    });
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
       value: true,
     });
-    expect(wrapper.state().isOnline).toBeTruthy();
+    setTimeout(() => {
+      expect(wrapper.state().isOnline).toEqual(navigator.onLine);
+    }, 1000);
   });
+
+  it('should not have any messages in state if status is unchanged', () => {
+    setTimeout(() => {
+      expect(wrapper.state().messages.length).toEqual(0);
+    }, 5000);
+  })
 });
 
 describe('<NetworkStateNotifier /> offline check', () => {
@@ -38,7 +50,7 @@ describe('<NetworkStateNotifier /> offline check', () => {
       value: false,
     });
     setTimeout(() => {
-      expect(wrapper.state().isOnline).toBeFalsy();
+      expect(wrapper.state().isOnline).toEqual(navigator.onLine);
     }, 1000);
   });
 });
@@ -74,7 +86,7 @@ describe('<NetworkStateNotifier /> messages check', () => {
   });
 });
 
-describe('<NetworkStateNotifies /> props check', () => {
+describe('<NetworkStateNotifier /> props check', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(
@@ -103,4 +115,12 @@ describe('<NetworkStateNotifies /> props check', () => {
       expect(wrapper.state().messages.length).toEqual(0);
     }, 2000);
   });
+});
+
+describe('<NetworkStateNotifier /> unmount check', () => {
+  let wrapper = shallow(<NetworkStateNotifier />);
+  
+  it('should remove the checker after unmount', () => {
+    wrapper.unmount();
+  }); 
 });
