@@ -1,6 +1,6 @@
 {
   "name": "react-network-status-notifier",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Continuously checks whether your application is online or not. Notifies when the status changes.",
   "main": "build/index.js",
   "repository": {
