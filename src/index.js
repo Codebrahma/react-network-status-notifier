@@ -3,16 +3,21 @@ import PropTypes from 'prop-types';
 
 import Message from './components/message';
 
-class NetworkStateNotifier extends React.Component {
-  constructor(props) {
-    super(props);
+const inBrowser = typeof navigator !== 'undefined';
+const unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chrome/;
+const pollingURL = 'https://ipv4.icanhazip.com/';
 
-    this.state = {
-      checker: null,
-      isOnline: navigator.onLine,
-      messages: [],
-    };
-  }
+class NetworkStateNotifier extends React.Component {
+  state = {
+    checker: null,
+    isOnline:
+      inBrowser && typeof navigator.onLine === 'boolean'
+        ? navigator.onLine
+        : undefined,
+    messages: [],
+    polling:
+      inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
+  };
 
   componentDidMount() {
     const { checker } = this.state;
@@ -37,7 +42,7 @@ class NetworkStateNotifier extends React.Component {
   }
 
   handleMessageAddition = () => {
-    const { messages } = this.state;
+    const { messages, isOnline } = this.state;
     const {
       offlineMessage,
       offlineColor,
@@ -46,29 +51,18 @@ class NetworkStateNotifier extends React.Component {
       onlineMessage,
       onlineColor,
     } = this.props;
-    if (!navigator.onLine) {
-      messages.push(
-        <Message
-          message={offlineMessage}
-          style={{
-            ...messageStyles,
-            backgroundColor: offlineColor,
-          }}
-          className={messageClassName}
-        />,
-      );
-    } else {
-      messages.push(
-        <Message
-          message={onlineMessage}
-          style={{
-            ...messageStyles,
-            backgroundColor: onlineColor,
-          }}
-          className={messageClassName}
-        />,
-      );
-    }
+    
+    messages.push(
+      <Message
+        message={isOnline ? offlineMessage : onlineMessage}
+        style={{
+          ...messageStyles,
+          backgroundColor: isOnline ? offlineColor : onlineColor,
+        }}
+        className={messageClassName}
+      />,
+    );
+    
     this.setState({
       messages,
     });
@@ -81,20 +75,40 @@ class NetworkStateNotifier extends React.Component {
     });
   };
 
-  handleChecker = () => {
-    const { isOnline } = this.state;
+  setIsOnline = (status) => {
     const { notificationTimeout } = this.props;
+    const { isOnline } = this.state;
 
-    if (isOnline !== navigator.onLine) {
-      this.handleMessageAddition();
-      this.setState(
-        {
-          isOnline: navigator.onLine,
-        },
-        () => {
-          setTimeout(this.handleMessageRemove, notificationTimeout);
-        },
-      );
+    if (isOnline === status) return;
+
+    this.handleMessageAddition();
+    this.setState(
+      {
+        isOnline: status,
+      },
+      () => {
+        setTimeout(this.handleMessageRemove, notificationTimeout);
+      },
+    );
+  };
+
+  handleChecker = () => {
+    const { polling, isOnline } = this.state;
+
+    if (polling) {
+      fetch(pollingURL, {}, 2000)
+        .then((res) => { // eslint-disable-line
+          if (!isOnline) {
+            this.setIsOnline(true);
+          }
+        })
+        .catch((err) => { // eslint-disable-line
+          if (isOnline) {
+            this.setIsOnline(false);
+          }
+        });
+    } else if (isOnline !== navigator.onLine) {
+      this.setIsOnline(navigator.onLine);
     }
   };
 
