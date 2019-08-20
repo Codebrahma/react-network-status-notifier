@@ -2,15 +2,68 @@ import React from 'react';
 
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as fetch from 'isomorphic-fetch'; // eslint-disable-line
 
 import NetworkStateNotifier from './index';
 
 configure({ adapter: new Adapter() });
 
+describe('<NetworkStateNotifier /> poll check', () => {
+  const wrapper = shallow(<NetworkStateNotifier />);
+
+  test('isOnline should be true if resolve is true', (done) => {
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
+      value: true,
+    });
+    wrapper.setState({ polling: true, isOnline: false });
+    setTimeout(() => {
+      expect(wrapper.state().isOnline).toEqual(navigator.onLine);
+      done();
+    }, 3000);
+  });
+});
+
+describe('<NetworkStateNotifier /> props check', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(
+      <NetworkStateNotifier
+        containerClassName="myContainer"
+        pollInterval={500}
+        notificationTimeout={2000}
+      />,
+    );
+  });
+
+  afterEach(() => {
+    wrapper = null;
+  });
+
+  it('should have the className passed to it', () => {
+    expect(wrapper.props().className).toEqual('myContainer');
+  });
+
+  it('should remove message after the passed time', (done) => {
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
+      value: false,
+    });
+    setTimeout(() => {
+      expect(wrapper.state().messages.length).toEqual(0);
+      done();
+    }, 4000);
+  });
+});
+
 describe('<NetworkStateNotifier /> online check', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<NetworkStateNotifier />);
+  });
+
+  afterEach(() => {
+    wrapper = null;
   });
 
   it('should have an Interval set when mounted', () => {
@@ -46,6 +99,10 @@ describe('<NetworkStateNotifier /> offline check', () => {
     wrapper = shallow(<NetworkStateNotifier />);
   });
 
+  afterEach(() => {
+    wrapper = null;
+  });
+
   it('should have isOnline set to false when system is offline', (done) => {
     Object.defineProperty(navigator, 'onLine', {
       configurable: true,
@@ -66,6 +123,10 @@ describe('<NetworkStateNotifier /> messages check', () => {
       value: false,
     });
     wrapper = shallow(<NetworkStateNotifier />);
+  });
+
+  afterEach(() => {
+    wrapper = null;
   });
 
   it('should render a message when status is changed', (done) => {
@@ -98,37 +159,6 @@ describe('<NetworkStateNotifier /> messages check', () => {
         }
       }, 1000);
     }, 1000);
-  });
-});
-
-describe('<NetworkStateNotifier /> props check', () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = shallow(
-      <NetworkStateNotifier
-        containerClassName="myContainer"
-        pollInterval={500}
-        notificationTimeout={2000}
-      />,
-    );
-  });
-
-  it('should have the className passed to it', () => {
-    expect(wrapper.props().className).toEqual('myContainer');
-  });
-
-  it('should poll according to the duration passed', () => {
-    setTimeout(() => expect(wrapper.state().checker).toBeCalledTimes(2), 1000);
-  });
-
-  it('should remove message after the passed time', () => {
-    Object.defineProperty(navigator, 'onLine', {
-      configurable: true,
-      value: false,
-    });
-    setTimeout(() => {
-      expect(wrapper.state().messages.length).toEqual(0);
-    }, 2000);
   });
 });
 
