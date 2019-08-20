@@ -4,7 +4,7 @@
 
 🔔 Simple React component to notify whenever your application status changes from **Online** to **Offline** or vice-versa.
 
-<img src="demo.gif" width="800px" alt="" />
+<img src="demo.gif" alt="" align="middle" />
 
 ## Installation
 
