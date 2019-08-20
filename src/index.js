@@ -13,7 +13,7 @@ class NetworkStateNotifier extends React.Component {
     isOnline:
       inBrowser && typeof navigator.onLine === 'boolean'
         ? navigator.onLine
-        : true,
+        : undefined,
     messages: [],
     polling:
       inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
@@ -51,29 +51,18 @@ class NetworkStateNotifier extends React.Component {
       onlineMessage,
       onlineColor,
     } = this.props;
-    if (isOnline) {
-      messages.push(
-        <Message
-          message={offlineMessage}
-          style={{
-            ...messageStyles,
-            backgroundColor: offlineColor,
-          }}
-          className={messageClassName}
-        />,
-      );
-    } else {
-      messages.push(
-        <Message
-          message={onlineMessage}
-          style={{
-            ...messageStyles,
-            backgroundColor: onlineColor,
-          }}
-          className={messageClassName}
-        />,
-      );
-    }
+    
+    messages.push(
+      <Message
+        message={isOnline ? offlineMessage : onlineMessage}
+        style={{
+          ...messageStyles,
+          backgroundColor: isOnline ? offlineColor : onlineColor,
+        }}
+        className={messageClassName}
+      />,
+    );
+    
     this.setState({
       messages,
     });
@@ -86,7 +75,7 @@ class NetworkStateNotifier extends React.Component {
     });
   };
 
-  toggleOnlineOffline = (status) => {
+  setIsOnline = (status) => {
     const { notificationTimeout } = this.props;
     const { isOnline } = this.state;
 
@@ -110,16 +99,16 @@ class NetworkStateNotifier extends React.Component {
       fetch(pollingURL, {}, 2000)
         .then((res) => { // eslint-disable-line
           if (!isOnline) {
-            this.toggleOnlineOffline(true);
+            this.setIsOnline(true);
           }
         })
         .catch((err) => { // eslint-disable-line
           if (isOnline) {
-            this.toggleOnlineOffline(false);
+            this.setIsOnline(false);
           }
         });
     } else if (isOnline !== navigator.onLine) {
-      this.toggleOnlineOffline(navigator.onLine);
+      this.setIsOnline(navigator.onLine);
     }
   };
 
