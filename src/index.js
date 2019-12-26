@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Message from './components/message';
 
 const inBrowser = typeof navigator !== 'undefined';
-const unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chrome/;
+const unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox/;
 const pollingURL = 'https://ipv4.icanhazip.com/';
 
 class NetworkStateNotifier extends React.Component {
